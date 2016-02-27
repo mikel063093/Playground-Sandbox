@@ -11,6 +11,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import ro.tudorluca.realm.sandbox.city.CityActivity;
 import ro.tudorluca.realm.sandbox.model.CitiesInteractor;
 import ro.tudorluca.realm.sandbox.model.CitiesInteractorImplementation;
@@ -37,43 +39,57 @@ public class MainActivity extends AppCompatActivity {
 
         final ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progress);
 
-        try {
-            final CitiesInteractor interactor = new CitiesInteractorImplementation();
-            InputStream stream = getAssets().open("cities.json");
+        final Button seed = (Button) findViewById(R.id.seed_button);
+        seed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
 
-            interactor.seed(stream)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe(new Action0() {
-                        @Override
-                        public void call() {
-                            goHome.setEnabled(false);
-                            loadingProgressBar.setVisibility(View.VISIBLE);
-                        }
-                    })
-                    .finallyDo(new Action0() {
-                        @Override
-                        public void call() {
-                            loadingProgressBar.setVisibility(View.INVISIBLE);
-                        }
-                    })
-                    .subscribe(
-                            new Action1<Void>() {
-                                @Override
-                                public void call(Void seeded) {
-                                    goHome.setEnabled(true);
-                                }
-                            },
-                            new Action1<Throwable>() {
-                                @Override
-                                public void call(Throwable throwable) {
-                                    Toast.makeText(MainActivity.this, "Aw, Snap!", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                    );
+                    final Realm realm = Realm.getDefaultInstance();
+                    final RealmConfiguration realmConfiguration = realm.getConfiguration();
+                    realm.close();
+                    Realm.deleteRealm(realmConfiguration);
 
-        } catch (IOException ignored) {
-            Toast.makeText(MainActivity.this, "Aw, Snap!", Toast.LENGTH_SHORT).show();
-        }
+                    final CitiesInteractor interactor = new CitiesInteractorImplementation();
+                    InputStream stream = getAssets().open("cities.json");
+
+                    interactor.seed(stream)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnSubscribe(new Action0() {
+                                @Override
+                                public void call() {
+                                    goHome.setEnabled(false);
+                                    loadingProgressBar.setVisibility(View.VISIBLE);
+                                }
+                            })
+                            .finallyDo(new Action0() {
+                                @Override
+                                public void call() {
+                                    loadingProgressBar.setVisibility(View.INVISIBLE);
+                                }
+                            })
+                            .subscribe(
+                                    new Action1<Void>() {
+                                        @Override
+                                        public void call(Void seeded) {
+                                            goHome.setEnabled(true);
+                                        }
+                                    },
+                                    new Action1<Throwable>() {
+                                        @Override
+                                        public void call(Throwable throwable) {
+                                            Toast.makeText(MainActivity.this, "Aw, Snap!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                            );
+
+                } catch (IOException ignored) {
+                    Toast.makeText(MainActivity.this, "Aw, Snap!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
 }

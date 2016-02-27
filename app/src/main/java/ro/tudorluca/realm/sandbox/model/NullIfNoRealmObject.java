@@ -16,7 +16,7 @@ public class NullIfNoRealmObject<RlmObject extends RealmObject> implements Obser
                 .filter(new Func1<RealmResults<RlmObject>, Boolean>() {
                     @Override
                     public Boolean call(RealmResults<RlmObject> rs) {
-                        return rs.isLoaded();
+                        return rs != null && rs.isLoaded();
                     }
                 })
                 .map(new Func1<RealmResults<RlmObject>, RlmObject>() {

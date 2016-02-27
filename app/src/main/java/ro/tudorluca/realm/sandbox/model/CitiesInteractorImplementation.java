@@ -15,8 +15,10 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmObject;
 import rx.Observable;
+import rx.Subscriber;
 import rx.functions.Action0;
 import rx.functions.Func1;
+import rx.subscriptions.Subscriptions;
 
 /**
  * Created by tudor on 26/02/16.
@@ -69,14 +71,29 @@ public class CitiesInteractorImplementation implements CitiesInteractor {
 
     @Override
     public Observable<City> getHomeTown() {
-        final Realm realm = Realm.getDefaultInstance();
-        return realm.where(City.class).equalTo("name", "Cluj-Napoca").findAllAsync().asObservable()
-                .doOnUnsubscribe(new Action0() {
+        return getManagedRealm()
+                .concatMap(new Func1<Realm, Observable<City>>() {
+                    @Override
+                    public Observable<City> call(Realm realm) {
+                        return realm.where(City.class).equalTo("name", "Cluj-Napoca").findAllAsync().asObservable()
+                                .compose(new NullIfNoRealmObject<City>());
+                    }
+                });
+    }
+
+    private static Observable<Realm> getManagedRealm() {
+        return Observable.create(new Observable.OnSubscribe<Realm>() {
+            @Override
+            public void call(final Subscriber<? super Realm> subscriber) {
+                final Realm realm = Realm.getDefaultInstance();
+                subscriber.add(Subscriptions.create(new Action0() {
                     @Override
                     public void call() {
                         realm.close();
                     }
-                })
-                .compose(new NullIfNoRealmObject<City>());
+                }));
+                subscriber.onNext(realm);
+            }
+        });
     }
 }
