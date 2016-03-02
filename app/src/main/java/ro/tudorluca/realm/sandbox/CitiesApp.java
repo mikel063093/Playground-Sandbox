@@ -31,6 +31,9 @@ public class CitiesApp extends Application {
             }
         });
 
-        Stetho.initializeWithDefaults(this);
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build()
+        );
     }
 }
