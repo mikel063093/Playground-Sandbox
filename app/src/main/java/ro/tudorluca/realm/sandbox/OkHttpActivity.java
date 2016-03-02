@@ -58,9 +58,9 @@ public class OkHttpActivity extends AppCompatActivity {
 
                     @Override
                     public List<Cookie> loadForRequest(HttpUrl url) {
-                        return new ArrayList<Cookie>() {{
-                            add(createNonPersistentCookie());
-                        }};
+                        final ArrayList<Cookie> oneCookie = new ArrayList<>(1);
+                        oneCookie.add(createNonPersistentCookie());
+                        return oneCookie;
                     }
                 })
                 .build();
