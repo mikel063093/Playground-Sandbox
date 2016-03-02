@@ -32,21 +32,21 @@ public class OkHttpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ok_http);
 
-    interceptorClient = new OkHttpClient().newBuilder()
-            .addNetworkInterceptor(new StethoInterceptor())
-            .addInterceptor(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    final Request original = chain.request();
+        interceptorClient = new OkHttpClient().newBuilder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        final Request original = chain.request();
 
-                    final Request authorized = original.newBuilder()
-                            .addHeader("Cookie", "cookie-name=cookie-value")
-                            .build();
+                        final Request authorized = original.newBuilder()
+                                .addHeader("Cookie", "cookie-name=cookie-value")
+                                .build();
 
-                    return chain.proceed(authorized);
-                }
-            })
-            .build();
+                        return chain.proceed(authorized);
+                    }
+                })
+                .build();
 
         cookieJarClient = new OkHttpClient().newBuilder()
                 .addNetworkInterceptor(new StethoInterceptor())
