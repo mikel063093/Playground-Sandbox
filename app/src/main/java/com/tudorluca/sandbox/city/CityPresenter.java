@@ -1,7 +1,9 @@
-package ro.tudorluca.realm.sandbox.city;
+package com.tudorluca.sandbox.city;
 
-import ro.tudorluca.realm.sandbox.model.CitiesInteractor;
-import ro.tudorluca.realm.sandbox.model.City;
+
+import com.tudorluca.sandbox.city.model.CitiesInteractor;
+import com.tudorluca.sandbox.city.model.City;
+
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="ro.tudorluca.realm.sandbox"
+<manifest package="com.tudorluca.sandbox"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".CitiesApp"
+        android:name="com.tudorluca.sandbox.CitiesApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.tudorluca.sandbox.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".city.CityActivity" />
-        <activity android:name=".OkHttpActivity" />
+        <activity android:name="com.tudorluca.sandbox.city.CityActivity" />
+        <activity android:name="com.tudorluca.sandbox.OkHttpActivity" />
     </application>
 
 </manifest>

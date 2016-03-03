@@ -1,4 +1,4 @@
-package ro.tudorluca.realm.sandbox;
+package com.tudorluca.sandbox;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,14 +8,15 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.tudorluca.sandbox.city.CityActivity;
+import com.tudorluca.sandbox.city.model.CitiesInteractor;
+import com.tudorluca.sandbox.city.model.CitiesInteractorImplementation;
+
 import java.io.IOException;
 import java.io.InputStream;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import ro.tudorluca.realm.sandbox.city.CityActivity;
-import ro.tudorluca.realm.sandbox.model.CitiesInteractor;
-import ro.tudorluca.realm.sandbox.model.CitiesInteractorImplementation;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button goHome = (Button) findViewById(R.id.go_to_hometown);
+        final Button goHome = (Button) findViewById(R.id.go_home_button);
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

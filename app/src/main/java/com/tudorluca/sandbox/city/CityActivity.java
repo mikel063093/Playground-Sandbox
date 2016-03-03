@@ -1,4 +1,4 @@
-package ro.tudorluca.realm.sandbox.city;
+package com.tudorluca.sandbox.city;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -7,9 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ro.tudorluca.realm.sandbox.R;
-import ro.tudorluca.realm.sandbox.model.CitiesInteractorImplementation;
-import ro.tudorluca.realm.sandbox.model.City;
+import com.tudorluca.sandbox.R;
+import com.tudorluca.sandbox.city.model.CitiesInteractorImplementation;
+import com.tudorluca.sandbox.city.model.City;
+
 
 public class CityActivity extends AppCompatActivity implements CityContract.View {
 

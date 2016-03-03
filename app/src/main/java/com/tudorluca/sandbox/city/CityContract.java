@@ -1,8 +1,9 @@
-package ro.tudorluca.realm.sandbox.city;
+package com.tudorluca.sandbox.city;
 
 import android.support.annotation.Nullable;
 
-import ro.tudorluca.realm.sandbox.model.City;
+import com.tudorluca.sandbox.city.model.City;
+
 
 /**
  * Created by tudor on 26/02/16.

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Realm-Sandbox</string>
+    <string name="app_name">Sandbox</string>
     <string name="go_home">Go HOME</string>
     <string name="no_city">No city...</string>
     <string name="seed_cities">SEED CITIES</string>

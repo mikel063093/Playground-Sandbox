@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ro.tudorluca.realm.sandbox.model;
+package com.tudorluca.sandbox.city.model;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

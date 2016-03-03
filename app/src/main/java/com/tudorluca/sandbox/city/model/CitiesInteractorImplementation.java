@@ -1,4 +1,4 @@
-package ro.tudorluca.realm.sandbox.model;
+package com.tudorluca.sandbox.city.model;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

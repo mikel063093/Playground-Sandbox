@@ -1,4 +1,4 @@
-package ro.tudorluca.realm.sandbox.model;
+package com.tudorluca.sandbox.city.model;
 
 import java.io.InputStream;
 
