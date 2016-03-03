@@ -9,6 +9,7 @@ import com.facebook.stetho.InspectorModulesProvider;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.inspector.protocol.ChromeDevtoolsDomain;
 import com.facebook.stetho.rhino.JsRuntimeReplFactoryBuilder;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.mozilla.javascript.BaseFunction;
 import org.mozilla.javascript.Scriptable;
@@ -17,6 +18,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import rx.plugins.RxJavaErrorHandler;
 import rx.plugins.RxJavaPlugins;
+import timber.log.Timber;
 
 /**
  * Created by tudor on 26/02/16.
@@ -28,8 +30,6 @@ public class CitiesApp extends Application {
         super.onCreate();
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
         Realm.setDefaultConfiguration(realmConfiguration);
-
-        // Clear the realm from last time
         Realm.deleteRealm(realmConfiguration);
 
         RxJavaPlugins.getInstance().registerErrorHandler(new RxJavaErrorHandler() {
@@ -40,11 +40,14 @@ public class CitiesApp extends Application {
             }
         });
 
-        final Handler handler = new Handler(Looper.getMainLooper());
+        AndroidThreeTen.init(this);
+
+        Timber.plant(new Timber.DebugTree());
 
         final ActivityCallback activityCallback = new ActivityCallback();
         registerActivityLifecycleCallbacks(activityCallback);
 
+        final Handler handler = new Handler(Looper.getMainLooper());
         final Context context = this;
         Stetho.initialize(Stetho.newInitializerBuilder(context)
                 .enableWebKitInspector(new InspectorModulesProvider() {
