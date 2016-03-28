@@ -1,0 +1,14 @@
+machine:
+    environment:
+        GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:MaxPermSize=1024m -Xms512m -XX:+HeapDumpOnOutOfMemoryError"'
+
+dependencies:
+    pre:
+        # Disables updates until Google fixes the revision 27+. See: https://code.google.com/p/android/issues/detail?id=203546
+        - echo y | android update sdk --no-ui --all --filter "build-tools-23.0.2,tool,extra-android-support,extra-google-google_play_services,extra-google-m2repository,extra-android-m2repository"
+
+    cache_directories:
+        - ~/.android
+test:
+    override:
+        - ./gradlew clean assembleDebug

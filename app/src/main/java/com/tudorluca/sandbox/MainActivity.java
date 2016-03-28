@@ -99,5 +99,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        final Button dates = (Button) findViewById(R.id.dates_button);
+        dates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(MainActivity.this, SortDatesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
