@@ -1,13 +1,8 @@
 machine:
     environment:
         GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:MaxPermSize=1024m -Xms512m -XX:+HeapDumpOnOutOfMemoryError"'
-#        ANDROID_HOME: /home/ubuntu/android
 
 dependencies:
-    cache_directories:
-#        - ~/.android
-#        - ~/android
-#        - /usr/local/android-sdk-linux
     pre:
         - ./install-dependencies.sh
 
