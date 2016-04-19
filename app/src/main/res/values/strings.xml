@@ -3,4 +3,8 @@
     <string name="go_home">Go HOME</string>
     <string name="no_city">No city...</string>
     <string name="seed_cities">SEED CITIES</string>
+    <string name="glide">GLIDE</string>
+    <string name="date_node">DATE NODE</string>
+    <string name="dates">DATES</string>
+    <string name="ok_http">Ok Http</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.tudorluca.sandbox;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +15,7 @@ import org.mozilla.javascript.Scriptable;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import ro.tudorluca.sandbox.library.LibraryApp;
 import rx.plugins.RxJavaErrorHandler;
 import rx.plugins.RxJavaPlugins;
 import timber.log.Timber;
@@ -23,11 +23,12 @@ import timber.log.Timber;
 /**
  * Created by tudor on 26/02/16.
  */
-public class CitiesApp extends Application {
+public class CitiesApp extends LibraryApp {
 
     @Override
     public void onCreate() {
         super.onCreate();
+
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
         Realm.setDefaultConfiguration(realmConfiguration);
         Realm.deleteRealm(realmConfiguration);
@@ -69,6 +70,4 @@ public class CitiesApp extends Application {
                 .build()
         );
     }
-
-
 }

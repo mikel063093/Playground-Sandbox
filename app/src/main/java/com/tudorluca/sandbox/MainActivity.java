@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.tudorluca.sandbox.city.CityActivity;
 import com.tudorluca.sandbox.city.model.CitiesInteractor;
 import com.tudorluca.sandbox.city.model.CitiesInteractorImplementation;
+import com.tudorluca.sandbox.date.DateNodeActivity;
+import com.tudorluca.sandbox.glide.GlideActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Button goHome = (Button) findViewById(R.id.go_home_button);
+        assert goHome != null;
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,8 +42,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progress);
+        assert loadingProgressBar != null;
 
         final Button seed = (Button) findViewById(R.id.seed_button);
+        assert seed != null;
         seed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final Button okHttp = (Button) findViewById(R.id.ok_button);
+        assert okHttp != null;
         okHttp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,10 +107,31 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final Button dates = (Button) findViewById(R.id.dates_button);
+        assert dates != null;
         dates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Intent intent = new Intent(MainActivity.this, SortDatesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final Button dateNode = (Button) findViewById(R.id.date_node_button);
+        assert dateNode != null;
+        dateNode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(MainActivity.this, DateNodeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final Button glideButton = (Button) findViewById(R.id.glide_button);
+        assert glideButton != null;
+        glideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(MainActivity.this, GlideActivity.class);
                 startActivity(intent);
             }
         });

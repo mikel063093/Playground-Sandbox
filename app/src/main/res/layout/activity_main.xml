@@ -10,22 +10,6 @@
     tools:context="com.tudorluca.sandbox.MainActivity">
 
     <Button
-        android:id="@+id/go_home_button"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:enabled="false"
-        android:text="@string/go_home" />
-
-    <ProgressBar
-        android:id="@+id/loading_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/go_home_button"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
-
-    <Button
         android:id="@+id/seed_button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
@@ -39,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/seed_button"
         android:layout_centerHorizontal="true"
-        android:text="Ok Http" />
+        android:text="@string/ok_http" />
 
     <Button
         android:id="@+id/dates_button"
@@ -47,6 +31,40 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/ok_button"
         android:layout_centerHorizontal="true"
-        android:text="DATES" />
+        android:text="@string/dates" />
+
+    <Button
+        android:id="@+id/date_node_button"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/dates_button"
+        android:layout_centerHorizontal="true"
+        android:text="@string/date_node" />
+
+    <Button
+        android:id="@+id/go_home_button"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/date_node_button"
+        android:layout_centerInParent="true"
+        android:enabled="false"
+        android:text="@string/go_home" />
+
+    <ProgressBar
+        android:id="@+id/loading_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_toEndOf="@id/go_home_button"
+        android:layout_toRightOf="@id/go_home_button"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/glide_button"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/go_home_button"
+        android:layout_centerHorizontal="true"
+        android:text="@string/glide" />
 
 </RelativeLayout>

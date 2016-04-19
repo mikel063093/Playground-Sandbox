@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.tudorluca.sandbox"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tudorluca.sandbox">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -21,6 +21,13 @@
         <activity android:name=".city.CityActivity" />
         <activity android:name=".OkHttpActivity" />
         <activity android:name=".SortDatesActivity" />
+        <activity android:name=".date.DateNodeActivity" />
+        <activity android:name=".glide.GlideActivity" />
+
+        <meta-data
+            android:name="ro.tudorluca.sandbox.library.GlideSetup"
+            android:value="GlideModule" />
+
     </application>
 
 </manifest>
