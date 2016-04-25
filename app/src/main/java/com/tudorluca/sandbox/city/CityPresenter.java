@@ -1,8 +1,12 @@
 package com.tudorluca.sandbox.city;
 
 
+import android.util.Log;
+
 import com.tudorluca.sandbox.city.model.CitiesInteractor;
 import com.tudorluca.sandbox.city.model.City;
+
+import java.util.List;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -55,8 +59,39 @@ public class CityPresenter implements CityContract.Presenter {
                             }
                         }
                 );
-
         compositeSubscription.add(subscription);
+
+        Subscription subscription1 = interactor.getFunkCities(true, true).subscribe(new Action1<List<City>>() {
+            @Override
+            public void call(List<City> cities) {
+                for (City city : cities) {
+                    Log.d("CITIES", "All: " + cities.size() + " " + City.printString(city));
+                }
+            }
+        });
+        compositeSubscription.add(subscription1);
+
+        Subscription subscription2 = interactor.getFunkCities(true, false)
+                .subscribe(new Action1<List<City>>() {
+                    @Override
+                    public void call(List<City> cities) {
+                        for (City city : cities) {
+                            Log.d("CITIES", "Bellow: " + cities.size() + " " + City.printString(city));
+                        }
+                    }
+                });
+        compositeSubscription.add(subscription2);
+
+        Subscription subscription3 = interactor.getFunkCities(false, true)
+                .subscribe(new Action1<List<City>>() {
+                    @Override
+                    public void call(List<City> cities) {
+                        for (City city : cities) {
+                            Log.d("CITIES", "Above: " + cities.size() + " " + City.printString(city));
+                        }
+                    }
+                });
+        compositeSubscription.add(subscription3);
     }
 
     @Override

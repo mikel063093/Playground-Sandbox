@@ -12,6 +12,10 @@ buildscript {
     }
 }
 
+ext {
+    kotlin = '1.0.1-2'
+}
+
 def executingOnCI() {
     def ciServer = 'CI'
     return 'true'.equals(System.getenv(ciServer))

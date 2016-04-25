@@ -13,9 +13,9 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import org.mozilla.javascript.BaseFunction;
 import org.mozilla.javascript.Scriptable;
 
+import care.smart.android.common.utils.glide.LibraryApp;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import ro.tudorluca.sandbox.library.LibraryApp;
 import rx.plugins.RxJavaErrorHandler;
 import rx.plugins.RxJavaPlugins;
 import timber.log.Timber;

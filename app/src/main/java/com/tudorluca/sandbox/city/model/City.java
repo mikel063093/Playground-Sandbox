@@ -25,6 +25,14 @@ public class City extends RealmObject {
     private String name;
     private long votes;
 
+    public City() {
+    }
+
+    public City(String name, long votes) {
+        this.name = name;
+        this.votes = votes;
+    }
+
     public String getName() {
         return name;
     }
@@ -41,4 +49,10 @@ public class City extends RealmObject {
         this.votes = votes;
     }
 
+    public static String printString(City city) {
+        return "City{" +
+                "name='" + city.getName() + '\'' +
+                ", votes=" + city.getVotes() +
+                '}';
+    }
 }

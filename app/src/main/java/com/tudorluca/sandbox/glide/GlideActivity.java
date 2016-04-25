@@ -8,7 +8,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.tudorluca.sandbox.R;
 
-import ro.tudorluca.sandbox.library.User;
+import care.smart.android.common.utils.glide.User;
+
 
 public class GlideActivity extends AppCompatActivity {
 
