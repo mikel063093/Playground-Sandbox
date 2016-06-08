@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_loading">
+
+    <target
+        android:name="progress_bar"
+        android:animation="@animator/loading_progress" />
+
+    <target
+        android:name="progress_spinner"
+        android:animation="@animator/loading_progress_rotation" />
+
+</animated-vector>

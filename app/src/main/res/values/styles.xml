@@ -6,6 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:editTextColor">@android:color/holo_blue_light</item>
+        <item name="android:editTextBackground">@drawable/edit_text</item>
+        <item name="android:editTextStyle">@style/Widget.Playground.EditText</item>
+    </style>
+
+    <style name="Widget.Playground.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/edit_text</item>
+        <item name="android:paddingTop">@dimen/textInputLayout_hint_padding_compensation</item>
     </style>
 
 </resources>

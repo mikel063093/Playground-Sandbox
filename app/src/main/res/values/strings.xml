@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">Sandbox</string>
     <string name="go_home">Go HOME</string>
-    <string name="no_city">No city...</string>
+    <string name="no_city">No city…</string>
     <string name="seed_cities">SEED CITIES</string>
     <string name="glide">GLIDE</string>
     <string name="date_node">DATE NODE</string>
     <string name="dates">DATES</string>
     <string name="ok_http">Ok Http</string>
+    <string name="tlsv1_2">TLSv1.2</string>
+    <string name="rx_input">Rx Input</string>
+
+    <string name="username">Username</string>
 </resources>

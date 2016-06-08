@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+
+    <!-- reset state -->
+    <objectAnimator
+        android:duration="0"
+        android:propertyName="strokeAlpha"
+        android:valueFrom="1"
+        android:valueTo="1" />
+    <objectAnimator
+        android:duration="0"
+        android:propertyName="trimPathStart"
+        android:valueFrom="0"
+        android:valueTo="0" />
+    <objectAnimator
+        android:duration="0"
+        android:propertyName="trimPathEnd"
+        android:valueFrom="0"
+        android:valueTo="0" />
+    <objectAnimator
+        android:duration="4"
+        android:propertyName="strokeWidth"
+        android:valueFrom="0"
+        android:valueTo="4" />
+
+    <!-- decrease the trim end i.e trace out the circle & tick shapes -->
+    <objectAnimator
+        android:duration="1000"
+        android:interpolator="@android:interpolator/fast_out_slow_in"
+        android:propertyName="trimPathEnd"
+        android:valueFrom="0"
+        android:valueTo="1" />
+
+    <!-- animate the trim start to remove the circle & end up with just the tick -->
+    <objectAnimator
+        android:duration="600"
+        android:interpolator="@android:interpolator/fast_out_slow_in"
+        android:propertyName="trimPathStart"
+        android:startOffset="400"
+        android:valueFrom="0"
+        android:valueTo="0.835" />
+
+    <!-- animate the stroke width (from matching progress spinner, to standard icon stroke) -->
+    <objectAnimator
+        android:duration="500"
+        android:interpolator="@android:interpolator/linear_out_slow_in"
+        android:propertyName="strokeWidth"
+        android:startOffset="800"
+        android:valueFrom="4"
+        android:valueTo="2" />
+
+</set>

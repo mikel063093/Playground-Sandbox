@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:top="@dimen/textInputLayout_hint_padding">
+        <shape>
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="1dp"
+                android:color="@android:color/white" />
+
+            <padding
+                android:bottom="@dimen/edit_text_padding_bottom"
+                android:left="@dimen/edit_text_padding_left"
+                android:right="@dimen/edit_text_padding_right"
+                android:top="@dimen/edit_text_padding_top" />
+        </shape>
+    </item>
+
+</layer-list>

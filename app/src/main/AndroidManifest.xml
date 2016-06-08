@@ -18,11 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".city.CityActivity" />
-        <activity android:name=".OkHttpActivity" />
-        <activity android:name=".SortDatesActivity" />
-        <activity android:name=".date.DateNodeActivity" />
-        <activity android:name=".glide.GlideActivity" />
-
+        <activity android:name=".okhttp.OkHttpTLS2Activity" />
+        <activity android:name=".textinput.TextInputActivity" />
     </application>
 
 </manifest>

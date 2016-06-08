@@ -8,11 +8,13 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.security.ProviderInstaller;
 import com.tudorluca.sandbox.city.CityActivity;
 import com.tudorluca.sandbox.city.model.CitiesInteractor;
 import com.tudorluca.sandbox.city.model.CitiesInteractorImplementation;
-import com.tudorluca.sandbox.date.DateNodeActivity;
-import com.tudorluca.sandbox.glide.GlideActivity;
+import com.tudorluca.sandbox.okhttp.OkHttpTLS2Activity;
+import com.tudorluca.sandbox.textinput.TextInputActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,120 +22,104 @@ import java.io.InputStream;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProviderInstaller.ProviderInstallListener {
+
+    private ProgressBar loadingProgressBar;
+    private Button goHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button goHome = (Button) findViewById(R.id.go_home_button);
-        assert goHome != null;
-        goHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(MainActivity.this, CityActivity.class);
-                startActivity(intent);
-            }
-        });
+        ProviderInstaller.installIfNeededAsync(this, this);
 
-        final ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progress);
-        assert loadingProgressBar != null;
+        loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progress);
+
+        goHome = (Button) findViewById(R.id.go_home_button);
+        if (goHome != null) {
+            goHome.setOnClickListener(v -> startActivity(new Intent(this, CityActivity.class)));
+        }
 
         final Button seed = (Button) findViewById(R.id.seed_button);
-        assert seed != null;
-        seed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
+        if (seed != null) {
+            seed.setOnClickListener(v -> seed());
+        }
 
-                    final Realm realm = Realm.getDefaultInstance();
-                    final RealmConfiguration realmConfiguration = realm.getConfiguration();
-                    realm.close();
-                    Realm.deleteRealm(realmConfiguration);
+        final Button tls = (Button) findViewById(R.id.tls_button);
+        if (tls != null) {
+            tls.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, OkHttpTLS2Activity.class)));
+        }
 
-                    final CitiesInteractor interactor = new CitiesInteractorImplementation();
-                    InputStream stream = getAssets().open("cities.json");
+        final Button rx = (Button) findViewById(R.id.rx_button);
+        if (rx != null) {
+            rx.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TextInputActivity.class)));
+        }
+    }
 
-                    interactor.seed(stream)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnSubscribe(new Action0() {
-                                @Override
-                                public void call() {
-                                    goHome.setEnabled(false);
-                                    loadingProgressBar.setVisibility(View.VISIBLE);
-                                }
-                            })
-                            .finallyDo(new Action0() {
-                                @Override
-                                public void call() {
-                                    loadingProgressBar.setVisibility(View.INVISIBLE);
-                                }
-                            })
-                            .subscribe(
-                                    new Action1<Void>() {
-                                        @Override
-                                        public void call(Void seeded) {
-                                            goHome.setEnabled(true);
-                                        }
-                                    },
-                                    new Action1<Throwable>() {
-                                        @Override
-                                        public void call(Throwable throwable) {
-                                            Toast.makeText(MainActivity.this, "Aw, Snap!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                            );
+    @Override
+    public void onProviderInstalled() {
+        Toast.makeText(this, "SSL Provider installed", Toast.LENGTH_LONG).show();
+    }
 
-                } catch (IOException ignored) {
-                    Toast.makeText(MainActivity.this, "Aw, Snap!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    private static final int ERROR_DIALOG_REQUEST_CODE = 1;
 
-        final Button okHttp = (Button) findViewById(R.id.ok_button);
-        assert okHttp != null;
-        okHttp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(MainActivity.this, OkHttpActivity.class);
-                startActivity(intent);
-            }
-        });
+    @Override
+    public void onProviderInstallFailed(int errorCode, Intent intent) {
+        GoogleApiAvailability googleApi = GoogleApiAvailability.getInstance();
+        if (googleApi.isUserResolvableError(errorCode)) {
+            // Recoverable error. Show a dialog prompting the user to
+            // install/update/enable Google Play services.
+            googleApi.getErrorDialog(MainActivity.this, errorCode, ERROR_DIALOG_REQUEST_CODE, dialog -> {
+                // The user chose not to take the recovery action
+                onProviderInstallerNotAvailable();
+            });
+        } else {
+            // Google Play services is not available.
+            onProviderInstallerNotAvailable();
+        }
+    }
 
-        final Button dates = (Button) findViewById(R.id.dates_button);
-        assert dates != null;
-        dates.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(MainActivity.this, SortDatesActivity.class);
-                startActivity(intent);
-            }
-        });
+    private void onProviderInstallerNotAvailable() {
+        // This is reached if the provider cannot be updated for some reason.
+        // App should consider all HTTP communication to be vulnerable, and take
+        // appropriate action.
 
-        final Button dateNode = (Button) findViewById(R.id.date_node_button);
-        assert dateNode != null;
-        dateNode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(MainActivity.this, DateNodeActivity.class);
-                startActivity(intent);
-            }
-        });
+        Toast.makeText(this, "WOOOOW! Security problems!", Toast.LENGTH_LONG).show();
+    }
 
-        final Button glideButton = (Button) findViewById(R.id.glide_button);
-        assert glideButton != null;
-        glideButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(MainActivity.this, GlideActivity.class);
-                startActivity(intent);
-            }
-        });
+    private void seed() {
+        try {
+
+            final Realm realm = Realm.getDefaultInstance();
+            final RealmConfiguration realmConfiguration = realm.getConfiguration();
+            realm.close();
+            Realm.deleteRealm(realmConfiguration);
+
+            final CitiesInteractor interactor = new CitiesInteractorImplementation();
+            InputStream stream = getAssets().open("cities.json");
+
+            interactor.seed(stream)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(() -> {
+                        goHome.setEnabled(false);
+                        loadingProgressBar.setVisibility(View.VISIBLE);
+                    })
+                    .doOnTerminate(() -> loadingProgressBar.setVisibility(View.INVISIBLE))
+                    .subscribe(
+                            seeded -> {
+                                goHome.setEnabled(true);
+                            },
+                            throwable -> {
+                                Toast.makeText(MainActivity.this, "Aw, Snap!", Toast.LENGTH_SHORT).show();
+                            }
+                    );
+
+        } catch (IOException ignored) {
+            Toast.makeText(MainActivity.this, "Aw, Snap!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

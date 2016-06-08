@@ -4,16 +4,14 @@ buildscript {
     repositories {
         jcenter()
     }
+
+    //noinspection GroovyAssignabilityCheck
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
-}
-
-ext {
-    kotlin = '1.0.1-2'
 }
 
 def executingOnCI() {
@@ -46,4 +44,39 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    kotlin = '1.0.1-2'
+
+    // Sdk and tools
+    minSdkVersion = 17
+    targetSdkVersion = 23
+    compileSdkVersion = 23
+    buildToolsVersion = '23.0.3'
+    heapSize = '4g'
+
+    // App dependencies
+    supportLibrary = '23.4.0'
+    playServices = '9.0.1'
+    multidex = '1.0.1'
+    realm = '0.88.2'
+    stetho = '1.3.1'
+    retrofit = '2.0.2'
+    okHttp = '3.2.0'
+    rxJava = '1.1.5'
+    rxAndroid = '1.2.0'
+    rxBinding = '0.4.0'
+    glide = '3.7.0'
+    tray = '0.10.0'
+    threeTen = '1.0.3'
+    diskCache = '2.0.2'
+    timber = '4.1.2'
+    guava = '19.0'
+
+    // Test dependencies
+    junit = '4.12'
+
+    retrolambda = '2.3.0'
+    retrolambdaPlugin = '3.2.5'
 }
